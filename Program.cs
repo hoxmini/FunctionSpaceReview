@@ -2,6 +2,7 @@ class Program
     {
         static void Main()
         {
+            // --- Тестирование линейной функции ---
             LinearFunction f1 = new LinearFunction(new double[] { 2, 3 }, 5);
             LinearFunction f2 = new LinearFunction(new double[] { 1, 4 }, 2);
 
@@ -14,8 +15,8 @@ class Program
             double[] point = { 1, 2 };
             Console.WriteLine("Значение f1 в точке (1,2): " + f1.Evaluate(point));
 
-            double[] grad = f1.GetGradient();
-            Console.WriteLine("Градиент f1: (" + grad[0] + ", " + grad[1] + ")");
+            double[] gradLin = f1.GetGradient(point);
+            Console.WriteLine("Градиент f1: (" + gradLin[0] + ", " + gradLin[1] + ")");
 
             string str = "2,3,5;4";
             LinearFunction f3 = LinearFunction.Parse(str);
@@ -23,6 +24,7 @@ class Program
 
             Console.WriteLine();
 
+            // --- Тестирование квадратичной функции ---
             double[,] A = { { 1, 0 }, { 0, 1 } };
             double[] b = { 2, 3 };
             QuadraticFunction q1 = new QuadraticFunction(A, b, 5);
@@ -35,6 +37,9 @@ class Program
             Console.WriteLine("Умножение на 2: " + (2 * q1));
 
             Console.WriteLine("Значение q1 в точке (1,2): " + q1.Evaluate(point));
+
+            double[] gradQuad = q1.GetGradient(point);
+            Console.WriteLine("Градиент q1 в точке (1,2): (" + gradQuad[0] + ", " + gradQuad[1] + ")");
 
             string quadStr = "1,0,0,1;2,3;5";
             QuadraticFunction q3 = QuadraticFunction.Parse(quadStr);
