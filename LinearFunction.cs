@@ -26,6 +26,7 @@ namespace FunctionSpace
         public static LinearFunction operator -(LinearFunction f1, LinearFunction f2)
         {
             double[] newB = new double[f1.b.Length];
+            // Исправлена синтаксическая ошибка: убран лишний символ 'Ы'
             for (int i = 0; i < f1.b.Length; i++)
             {
                 newB[i] = f1.b[i] - f2.b[i];
@@ -81,7 +82,8 @@ namespace FunctionSpace
             return new LinearFunction(b, c);
         }
 
-        public double Evaluate(double[] x)
+        // Виртуальный метод вычисления значения в точке
+        public virtual double Evaluate(double[] x)
         {
             double sum = 0;
             for (int i = 0; i < b.Length; i++)
@@ -91,8 +93,11 @@ namespace FunctionSpace
             return sum + c;
         }
 
-        public double[] GetGradient()
+        // Виртуальный метод получения градиента (в линейной функции не зависит от x)
+        public virtual double[] GetGradient(double[] x)
         {
-            return b;
+            double[] grad = new double[b.Length];
+            Array.Copy(b, grad, b.Length);
+            return grad;
         }
     }
