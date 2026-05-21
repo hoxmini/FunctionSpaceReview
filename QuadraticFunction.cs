@@ -113,7 +113,8 @@ public class QuadraticFunction : LinearFunction
             return new QuadraticFunction(A, b, c);
         }
 
-        public new double Evaluate(double[] x)
+        // Переопределяем Evaluate с учётом квадратичной части
+        public override double Evaluate(double[] x)
         {
             double sum = 0;
             int n = A.GetLength(0);
@@ -131,8 +132,19 @@ public class QuadraticFunction : LinearFunction
             return sum + c;
         }
 
-        public new double[] GetGradient()
+        // Переопределяем градиент: ∇f(x) = (A + Aᵀ)x + b
+        public override double[] GetGradient(double[] x)
         {
-            return b;
+            int n = A.GetLength(0);
+            double[] grad = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                grad[i] = b[i];
+                for (int j = 0; j < n; j++)
+                {
+                    grad[i] += (A[i, j] + A[j, i]) * x[j];
+                }
+            }
+            return grad;
         }
     }
